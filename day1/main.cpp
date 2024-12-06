@@ -17,18 +17,41 @@ int main(){
     for(int i = 0; i < 1000; i++)
         input >> leftList[i] >> rightList[i];
 
+    input.close();
+
     quickSort(leftList, 999);//give it right index, ! length
     quickSort(rightList, 999);
 
-    int distance = 0;
-    for(int i = 0; i < 1000; i++){
-        if(leftList[i] >= rightList[i])
-            distance += leftList[i]-rightList[i];
-        else
-            distance += rightList[i] - leftList[i];
+    {
+        int distance = 0;
+        for(int i = 0; i < 1000; i++){
+            if(leftList[i] >= rightList[i])
+                distance += leftList[i]-rightList[i];
+            else
+                distance += rightList[i] - leftList[i];
+        }
+        cout << distance << endl;
     }
 
-    cout << distance;
+
+    int similarity = 0;
+    int k = 0;
+    int bun;
+    for(int i = 0; i < 1000; i++){
+        bun = 0;
+        while(leftList[i] > rightList[k])
+            k++;
+        while(leftList[i] == rightList[k]){
+            bun++;
+            k++;
+            if(k==1000){
+                i = 1000;
+                break;
+            }
+        }
+        similarity += leftList[i] * bun;
+    }
+    cout << similarity << endl;
 
     return 1;
 }
